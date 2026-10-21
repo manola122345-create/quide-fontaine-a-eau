@@ -1,0 +1,458 @@
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre chat boit-il assez ? 7 astuces simples — PatteStyle</title>
+  <meta name="description" content="7 astuces simples pour que votre chat retrouve le goût de boire. Guide pratique et solutions adaptées par PatteStyle.">
+  
+  <!-- Polices : Plus Jakarta Sans (moderne, géométrique, ultra-lisible sur écran) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              ink: '#0D1520',       /* Bleu nuit profond */
+              surface: '#FFFFFF',   /* Blanc pur */
+              bg: '#F5F7FA',        /* Gris bleuté ultra clair, pas de crème */
+              muted: '#526071',     /* Texte secondaire lisible */
+              border: '#E1E7EE',    /* Bordures subtiles */
+              water: '#0284C7',     /* Bleu eau vif */
+              waterLight: '#E0F2FE',
+              cta: '#EA580C',       /* Accent chaud unique : orange braise énergique */
+              ctaHover: '#C2410C',
+              /* Dark mode tokens */
+              darkBg: '#090E17',
+              darkSurface: '#121A26',
+              darkBorder: '#1F2C3F',
+              darkMuted: '#94A3B8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Lisibilité stricte : 17-18px min sur mobile */
+    body {
+      font-size: 1.125rem; /* 18px */
+      line-height: 1.7;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Trait d'onde d'eau interactif en fond dans le hero */
+    .water-ripple-bg {
+      background-image: radial-gradient(circle at 50% 100%, rgba(2, 132, 199, 0.08) 0%, transparent 65%);
+    }
+    .dark .water-ripple-bg {
+      background-image: radial-gradient(circle at 50% 100%, rgba(2, 132, 199, 0.15) 0%, transparent 70%);
+    }
+
+    /* Animation unique d'entrée dans le Hero */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-entrance {
+        animation: heroFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+    }
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Style de focus accessible */
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #EA580C;
+      outline-offset: 3px;
+    }
+
+    /* Barre de lecture fixe en haut */
+    #progress-bar {
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.08s ease-out;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-bg text-brand-ink dark:bg-brand-darkBg dark:text-slate-100 transition-colors duration-200">
+
+  <!-- Barre de progression de lecture discrète -->
+  <div class="fixed top-0 left-0 right-0 h-1 bg-brand-border dark:bg-brand-darkBorder z-50">
+    <div id="progress-bar" class="h-full bg-brand-water"></div>
+  </div>
+
+  <!-- HEADER : Minimaliste, sobre & rassurant -->
+  <header class="w-full bg-brand-surface/90 dark:bg-brand-darkSurface/90 backdrop-blur-md border-b border-brand-border dark:border-brand-darkBorder sticky top-0 z-40">
+    <div class="max-w-3xl mx-auto px-5 py-3.5 flex items-center justify-between">
+      
+      <!-- Logo PatteStyle -->
+      <a href="#" class="flex items-center gap-2 group" aria-label="PatteStyle - Retour à l'accueil">
+        <svg class="w-6 h-6 text-brand-cta transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C10.5 2 9 3.5 9 5c0 1.2.7 2.2 1.8 2.7-.4.5-.8 1.1-.8 1.8 0 1.7 1.3 3 3 3s3-1.3 3-3c0-.7-.4-1.3-.8-1.8 1.1-.5 1.8-1.5 1.8-2.7 0-1.5-1.5-3-3-3zm-6 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-9.5 5.5C7.7 15.5 7 16.2 7 17.2c0 2.2 2.2 4.3 5 4.3s5-2.1 5-4.3c0-1-.7-1.7-1.5-1.7-1.1 0-1.9.9-2.5 1.7-.3.4-.6.6-1 .6s-.7-.2-1-.6c-.6-.8-1.4-1.7-2.5-1.7z"/>
+        </svg>
+        <span class="font-extrabold text-xl tracking-tight text-brand-ink dark:text-white">Patte<span class="text-brand-cta">Style</span></span>
+      </a>
+
+      <!-- Sélecteur Thème Clair / Sombre -->
+      <button id="theme-toggle" type="button" class="p-2 rounded-xl text-brand-muted hover:text-brand-ink dark:text-brand-darkMuted dark:hover:text-white transition-colors" aria-label="Basculer le mode sombre">
+        <!-- Icône Lune -->
+        <svg id="moon-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <!-- Icône Soleil -->
+        <svg id="sun-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-5 pt-8 pb-32">
+
+    <!-- 1) SECTION HERO -->
+    <section class="hero-entrance pt-2 pb-8 border-b border-brand-border dark:border-brand-darkBorder relative water-ripple-bg rounded-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-waterLight dark:bg-brand-water/20 text-brand-water font-semibold text-xs uppercase tracking-wider mb-4">
+        <span class="w-2 h-2 rounded-full bg-brand-water animate-pulse"></span>
+        Guide bien-être chat
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand-ink dark:text-white leading-[1.2] mb-4">
+        Votre chat boit-il assez ?
+      </h1>
+
+      <p class="text-lg sm:text-xl text-brand-muted dark:text-brand-darkMuted font-medium leading-snug mb-7">
+        7 astuces simples pour que votre chat retrouve le goût de boire. À tester dès ce soir.
+      </p>
+
+      <!-- HERO : vidéo muette en boucle -->
+      <div class="relative w-full max-w-md mx-auto aspect-[4/5] bg-slate-200 dark:bg-slate-800 rounded-2xl overflow-hidden border border-brand-border dark:border-brand-darkBorder shadow-sm">
+        <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" poster="images/hero-poster.jpg" aria-label="Un chat boit à la fontaine">
+          <source src="video/hero-chat.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <!-- 2) INTRO -->
+    <section class="py-8 border-b border-brand-border dark:border-brand-darkBorder">
+      <p class="text-lg sm:text-xl font-medium text-brand-ink dark:text-slate-100 leading-relaxed">
+        Votre chat ignore sa gamelle ? Vous n’êtes pas seul. Beaucoup de propriétaires se posent la même question, et quelques changements très simples font souvent la différence.
+      </p>
+    </section>
+
+    <!-- 3) LES 7 ASTUCES -->
+    <article class="py-8 space-y-12">
+
+      <!-- ASTUCE 1 -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">1</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Éloignez l’eau de la nourriture et de la litière
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Beaucoup de chats préfèrent que leur eau soit à l’écart de leur gamelle de nourriture et, bien sûr, de la litière. Placez le point d’eau dans un endroit calme, à quelques mètres de la zone repas.
+        </p>
+      </section>
+
+      <!-- ASTUCE 2 -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">2</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Multipliez les points d’eau
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Un seul bol dans toute la maison, c’est peu. Installez un point d’eau dans chaque pièce où votre chat passe du temps : salon, chambre, couloir. Plus l’eau est facile à trouver, plus il a de chances d’en boire.
+        </p>
+      </section>
+
+      <!-- ASTUCE 3 -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">3</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Choisissez une gamelle large et peu profonde
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Certains chats n’aiment pas que leurs moustaches touchent les bords. Préférez un récipient large et peu profond, en inox ou en céramique, plus agréable et plus facile à garder propre que le plastique.
+        </p>
+      </section>
+
+      <!-- ASTUCE 4 -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">4</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Changez l’eau tous les jours
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Une eau fraîche et propre attire davantage. Videz, rincez et remplissez chaque jour, même si le bol semble encore plein.
+        </p>
+      </section>
+
+      <!-- ASTUCE 5 : Contient le BLOC PRODUIT -->
+      <section class="space-y-6">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-water text-white font-extrabold text-sm shadow-sm">5</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Proposez de l’eau en mouvement
+          </h2>
+        </div>
+        
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Beaucoup de chats sont attirés par l’eau qui bouge. C’est l’une des astuces les plus efficaces, et c’est là qu’une fontaine peut aider.
+        </p>
+
+        <!-- 4) BLOC PRODUIT (Mis en valeur visuellement) -->
+        <div class="mt-4 p-5 sm:p-6 rounded-3xl bg-brand-surface dark:bg-brand-darkSurface border-2 border-brand-water/30 dark:border-brand-water/40 shadow-xl relative overflow-hidden">
+          
+          <!-- Pastille Réduction appliquée -->
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-brand-cta text-white font-extrabold text-xs tracking-wider uppercase">
+              -30 % appliqué
+            </span>
+            <span class="text-xs font-semibold text-brand-muted dark:text-brand-darkMuted flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              En stock
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-extrabold tracking-tight text-brand-ink dark:text-white mb-4">
+            Fontaine à eau sans fil JUYANG
+          </h3>
+
+          <!-- PHOTOS DU PRODUIT -->
+          <div class="grid grid-cols-3 gap-2.5 mb-5">
+            <img src="images/chat-fontaine-1.jpg" alt="Chat qui boit à la fontaine en acier inoxydable" class="col-span-2 w-full aspect-[4/3] object-cover rounded-xl border border-brand-border dark:border-brand-darkBorder" loading="lazy" width="225" height="225">
+            <div class="col-span-1 flex flex-col gap-2.5">
+              <img src="images/fontaine-detail-2.jpg" alt="Détail de la fontaine en acier inoxydable" class="w-full aspect-square object-cover rounded-xl border border-brand-border dark:border-brand-darkBorder" loading="lazy" width="225" height="225">
+              <img src="images/fontaine-3.jpg" alt="Fontaine à eau sans fil, vue complète" class="w-full aspect-square object-cover rounded-xl border border-brand-border dark:border-brand-darkBorder" loading="lazy" width="1024" height="1024">
+            </div>
+          </div>
+
+          <!-- Points forts -->
+          <ul class="space-y-2.5 mb-6 text-sm text-brand-ink dark:text-slate-200 font-medium">
+            <li class="flex items-start gap-2.5">
+              <span class="text-brand-water mt-0.5">●</span>
+              <span><strong>2,2 L de réservoir</strong> (moins de remplissages)</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-brand-water mt-0.5">●</span>
+              <span><strong>Acier inoxydable</strong> (durable, facile à nettoyer)</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-brand-water mt-0.5">●</span>
+              <span><strong>Rechargeable et sans fil</strong> (à placer où l’on veut, sans chercher de prise)</span>
+            </li>
+          </ul>
+
+          <!-- Prix -->
+          <div class="flex items-baseline gap-3 mb-2">
+            <span class="text-3xl font-extrabold text-brand-ink dark:text-white">69,90 €</span>
+            <span class="text-lg text-brand-muted dark:text-brand-darkMuted line-through">99,86 €</span>
+            <span class="text-xs font-bold text-brand-cta uppercase tracking-wider bg-orange-100 dark:bg-orange-950/40 px-2 py-0.5 rounded">Remise immédiate</span>
+          </div>
+
+          <p class="text-xs text-brand-muted dark:text-brand-darkMuted mb-5">
+            Livraison gratuite · Livraison en 7 à 14 jours
+          </p>
+
+          <!-- Bouton CTA -->
+          <a href="https://pattestyle.vercel.app/product/18" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl bg-brand-cta hover:bg-brand-ctaHover text-white font-extrabold text-base tracking-wide shadow-md transition-all active:scale-[0.98]">
+            Découvrir la fontaine
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ASTUCE 6 -->
+      <section class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">6</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Faites la transition en douceur
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Ne retirez pas l’ancienne gamelle du jour au lendemain. Installez la fontaine à côté pendant quelques jours, dans un endroit calme, et laissez votre chat la découvrir à son rythme. Quelques gouttes d’eau au bord suffisent parfois à piquer sa curiosité.
+        </p>
+      </section>
+
+      <!-- ASTUCE 7 -->
+      <section class="space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-brand-water font-extrabold text-sm shadow-sm">7</span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-ink dark:text-white">
+            Entretenez-la régulièrement
+          </h2>
+        </div>
+        <p class="text-brand-muted dark:text-slate-300 leading-relaxed pl-11">
+          Une fontaine propre reste attirante. Réflexes simples :
+        </p>
+        <ul class="space-y-2.5 text-brand-muted dark:text-slate-300 pl-11 text-base">
+          <li class="flex items-start gap-2">
+            <span class="text-brand-water font-bold">—</span>
+            <span>nettoyez régulièrement le réservoir et les surfaces en contact avec l’eau ;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-water font-bold">—</span>
+            <span>utilisez une éponge douce et un produit nettoyant adapté, puis rincez soigneusement ;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-water font-bold">—</span>
+            <span>nettoyez la pompe selon les instructions du fabricant pour éviter l’accumulation de poils et de résidus ;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-water font-bold">—</span>
+            <span>évitez d’immerger les composants électriques ou la batterie ;</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-brand-water font-bold">—</span>
+            <span>vérifiez régulièrement l’état du matériel et arrêtez de l’utiliser en cas de dysfonctionnement.</span>
+          </li>
+        </ul>
+      </section>
+
+    </article>
+
+    <!-- 5) SECTION FINALE D'OFFRE -->
+    <section class="mt-8 p-6 sm:p-8 rounded-3xl bg-brand-surface dark:bg-brand-darkSurface border border-brand-border dark:border-brand-darkBorder text-center shadow-lg">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-ink dark:text-white mb-3">
+        Offre en cours : -30 % sur la fontaine
+      </h2>
+      <p class="text-brand-muted dark:text-slate-300 text-base sm:text-lg mb-6">
+        Prix actuel 69,90 € au lieu de 99,86 €, livraison gratuite.
+      </p>
+
+      <a href="https://pattestyle.vercel.app/product/18" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="w-full sm:w-auto inline-flex items-center justify-center py-4 px-8 rounded-2xl bg-brand-cta hover:bg-brand-ctaHover text-white font-extrabold text-lg shadow-md transition-all active:scale-[0.98] mb-5">
+        Voir la fontaine
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+
+      <!-- Petite ligne de réassurance -->
+      <p class="text-xs sm:text-sm text-brand-muted dark:text-brand-darkMuted font-medium flex items-center justify-center flex-wrap gap-x-3 gap-y-1">
+        <span>Paiement sécurisé</span>
+        <span>·</span>
+        <span>Livraison en 7 à 14 jours</span>
+        <span>·</span>
+        <span>Retour sous 14 jours</span>
+      </p>
+    </section>
+
+    <!-- 6) MENTION SANTÉ -->
+    <aside class="mt-8 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 text-xs sm:text-sm text-amber-900 dark:text-amber-200 text-center leading-relaxed">
+      Si votre chat boit soudainement beaucoup moins ou beaucoup plus que d’habitude, parlez-en à votre vétérinaire.
+    </aside>
+
+  </main>
+
+  <!-- 7) FOOTER -->
+  <footer class="w-full bg-brand-surface dark:bg-brand-darkSurface border-t border-brand-border dark:border-brand-darkBorder py-10 px-5 text-center text-xs text-brand-muted dark:text-brand-darkMuted">
+    <div class="max-w-2xl mx-auto space-y-4">
+      <p class="font-medium text-brand-ink dark:text-slate-300">
+        © PatteStyle · Des accessoires pensés pour vos compagnons
+      </p>
+      <nav class="flex items-center justify-center flex-wrap gap-x-4 gap-y-2">
+        <a href="#" class="hover:underline">Mentions légales</a>
+        <span>·</span>
+        <a href="#" class="hover:underline">CGV</a>
+        <span>·</span>
+        <a href="#" class="hover:underline">Politique de confidentialité</a>
+        <span>·</span>
+        <a href="#" class="hover:underline">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- BARRE D'ACHAT FIXE EN BAS SUR MOBILE -->
+  <div id="sticky-bottom-bar" class="fixed bottom-0 left-0 right-0 p-3 bg-brand-surface/95 dark:bg-brand-darkSurface/95 backdrop-blur-md border-t border-brand-border dark:border-brand-darkBorder z-40 sm:hidden transform translate-y-0 transition-transform duration-300 shadow-2xl">
+    <div class="flex items-center justify-between gap-3 max-w-md mx-auto">
+      <div class="flex flex-col">
+        <span class="text-xs font-semibold text-brand-muted dark:text-brand-darkMuted leading-none">Fontaine JUYANG</span>
+        <div class="flex items-center gap-1.5 mt-0.5">
+          <span class="text-lg font-extrabold text-brand-ink dark:text-white leading-none">69,90 €</span>
+          <span class="text-xs text-brand-muted dark:text-brand-darkMuted line-through">99,86 €</span>
+        </div>
+      </div>
+      <a href="https://pattestyle.vercel.app/product/18" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="py-3 px-5 rounded-xl bg-brand-cta text-white font-extrabold text-sm shadow-md active:scale-95 transition-transform flex items-center justify-center">
+        Voir la fontaine · 69,90 €
+      </a>
+    </div>
+  </div>
+
+  <!-- SCRIPTS : Interaction & Thème -->
+  <script>
+    // 1. Gestion de la barre de progression de lecture
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height);
+      const bar = document.getElementById('progress-bar');
+      if (bar) {
+        bar.style.transform = `scaleX(${scrolled})`;
+      }
+    });
+
+    // 2. Gestion du mode sombre (avec respect des préférences système)
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const storedTheme = localStorage.getItem('theme');
+
+    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+
+</body>
+</html>
